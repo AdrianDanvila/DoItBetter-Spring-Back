@@ -2,13 +2,21 @@ package com.DoItBetter.app.exceptions;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.security.SignatureException;
+import jakarta.servlet.http.HttpServletRequest;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ProblemDetail;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AccountStatusException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.NoHandlerFoundException;
+import org.springframework.http.MediaType;
+
+import com.DoItBetter.app.model.ApiErrorResponse;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -52,5 +60,12 @@ public class GlobalExceptionHandler {
     }
 
     return errorDetail;
+  }
+
+  @ExceptionHandler({ NoHandlerFoundException.class })
+  public ResponseEntity<ApiErrorResponse> handleNoHandlerFoundException(
+      NoHandlerFoundException ex, HttpServletRequest httpServletRequest) {
+    ApiErrorResponse apiErrorResponse = new ApiErrorResponse(404, "Resource not found");
+    return ResponseEntity.status(HttpStatus.NOT_FOUND).contentType(MediaType.APPLICATION_JSON).body(apiErrorResponse);
   }
 }

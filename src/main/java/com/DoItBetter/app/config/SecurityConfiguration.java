@@ -35,8 +35,10 @@ public class SecurityConfiguration {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http.csrf()
 				.disable()
+				.headers(headers -> headers.frameOptions().disable())
 				.authorizeHttpRequests()
 				.requestMatchers("/auth/**").permitAll() // Permitir todas las solicitudes a "/auth/**"
+				.requestMatchers("/h2-ui/**").permitAll() // Permitir todas las solicitudes a "/auth/**"
 				.anyRequest().authenticated() // Requiere autenticación para cualquier otra solicitud
 				.and()
 				.sessionManagement()
@@ -55,9 +57,9 @@ public class SecurityConfiguration {
 	CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration configuration = new CorsConfiguration();
 
-		configuration.setAllowedOrigins(List.of("http://localhost:8080"));
+		configuration.setAllowedOrigins(List.of("*"));
 		configuration.setAllowedMethods(List.of("GET", "POST"));
-		configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
+		configuration.setAllowedHeaders(List.of("Authorization", "Content-Type", "Access-Control-Allow-Origin"));
 
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 

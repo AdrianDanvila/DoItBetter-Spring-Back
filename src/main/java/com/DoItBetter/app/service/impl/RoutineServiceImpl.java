@@ -7,15 +7,15 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.DoItBetter.app.dto.UserDto;
+import com.DoItBetter.app.model.Routine;
 import com.DoItBetter.app.model.User;
-import com.DoItBetter.app.repository.UserRepository;
+import com.DoItBetter.app.repository.RoutineRepository;
 import com.DoItBetter.app.service.UserService;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class RoutineServiceImpl implements UserService {
 	@Autowired
-	UserRepository userRepository;
+	RoutineRepository routineRepository;
 	@Autowired
 	private ModelMapper modelMapper;
 
@@ -25,19 +25,17 @@ public class UserServiceImpl implements UserService {
 		throw new UnsupportedOperationException("Unimplemented method 'findAllEmployee'");
 	}
 
-	public void saveUser() {
-		User tempUser = new User();
-		userRepository.save(tempUser);
+	public void saveRoutine() {
+		Routine tempRoutine = new Routine();
+		routineRepository.save(tempRoutine);
 	}
 
-	public List<UserDto> allUsers() {
-		List<UserDto> users = new ArrayList<>();
+	public List<Routine> allRoutines() {
+		List<Routine> routines = new ArrayList<>();
 
-		userRepository.findAll().forEach(user -> {
-			users.add(modelMapper.map(user, UserDto.class));
-		});
+		routineRepository.findAll().forEach(routines::add);
 
-		return users;
+		return routines;
 	}
 
 }

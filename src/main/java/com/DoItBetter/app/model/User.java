@@ -9,16 +9,32 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.DoItBetter.app.dto.RegisterUserDto;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "Users")
 public class User implements UserDetails {
+
+	public User(String name, String email, String password, Number age, Number weight, Number height) {
+		this.name = name;
+		this.email = email;
+		this.password = password;
+		this.age = age;
+		this.weight = weight;
+		this.height = height;
+	}
+
+	public User() {
+		// TODO Auto-generated constructor stub
+	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,13 +42,25 @@ public class User implements UserDetails {
 	private Integer id;
 
 	@Column(nullable = false)
-	private String fullName;
+	private String name;
+
+	@Column(name = "age", nullable = false)
+	private Number age;
+
+	@Column()
+	private Number weight;
+
+	@Column()
+	private Number height;
 
 	@Column(unique = true, length = 100, nullable = false)
 	private String email;
 
 	@Column(nullable = false)
 	private String password;
+
+	@OneToMany(mappedBy = "user")
+	private List<Routine> routines;
 
 	@CreationTimestamp
 	@Column(updatable = false, name = "created_at")
@@ -87,8 +115,8 @@ public class User implements UserDetails {
 		return email;
 	}
 
-	public String getFullName() {
-		return fullName;
+	public String getName() {
+		return name;
 	}
 
 	public Integer getId() {
@@ -99,6 +127,22 @@ public class User implements UserDetails {
 		return updatedAt;
 	}
 
+	public Number getAge() {
+		return age;
+	}
+
+	public Number getHeight() {
+		return height;
+	}
+
+	public List<Routine> getRoutines() {
+		return routines;
+	}
+
+	public Number getWeight() {
+		return weight;
+	}
+
 	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
 	}
@@ -107,8 +151,8 @@ public class User implements UserDetails {
 		this.email = email;
 	}
 
-	public void setFullName(String fullName) {
-		this.fullName = fullName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public void setId(Integer id) {
@@ -122,4 +166,21 @@ public class User implements UserDetails {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
+
+	public void setAge(Number age) {
+		this.age = age;
+	}
+
+	public void setHeight(Number height) {
+		this.height = height;
+	}
+
+	public void setRoutines(List<Routine> routines) {
+		this.routines = routines;
+	}
+
+	public void setWeight(Number weight) {
+		this.weight = weight;
+	}
+
 }

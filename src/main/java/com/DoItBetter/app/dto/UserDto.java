@@ -3,21 +3,21 @@ package com.DoItBetter.app.dto;
 public class UserDto {
   private String email;
 
-  private String fullName;
+  private String name;
 
   public String getEmail() {
     return email;
   }
 
-  public String getFullName() {
-    return fullName;
+  public String getName() {
+    return name;
   }
 
   public void setEmail(String email) {
     this.email = email;
   }
 
-  public void setFullName(String fullName) {
-    this.fullName = fullName;
+  public void setName(String name) {
+    this.name = name;
   }
 }
