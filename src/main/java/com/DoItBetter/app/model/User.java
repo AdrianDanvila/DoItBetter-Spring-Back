@@ -9,8 +9,6 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.DoItBetter.app.dto.RegisterUserDto;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -33,7 +31,6 @@ public class User implements UserDetails {
 	}
 
 	public User() {
-		// TODO Auto-generated constructor stub
 	}
 
 	@Id

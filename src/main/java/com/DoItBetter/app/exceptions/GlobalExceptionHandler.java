@@ -65,11 +65,11 @@ public class GlobalExceptionHandler {
   }
 
   @ExceptionHandler({ NoHandlerFoundException.class })
-  public ResponseEntity<ResponseVO> handleNoHandlerFoundException(NoHandlerFoundException ex,
+  public ResponseEntity<ResponseVO<Void>> handleNoHandlerFoundException(NoHandlerFoundException ex,
       HttpServletRequest httpServletRequest) {
 
     return ResponseEntity.status(HttpStatus.NOT_FOUND).contentType(MediaType.APPLICATION_JSON)
-        .body(new ResponseVOBuilder<>()
+        .body(new ResponseVOBuilder<Void>()
             .error(new ResponseErrorVo(HttpStatus.NOT_FOUND.value(), ex.getMessage(), "Resource not found")).build());
   }
 }

@@ -21,7 +21,6 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public ArrayList<User> findAllUser() {
-		// TODO Auto-generated method stu b
 		throw new UnsupportedOperationException("Unimplemented method 'findAllEmployee'");
 	}
 

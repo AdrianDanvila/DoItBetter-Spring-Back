@@ -2,7 +2,6 @@ package com.DoItBetter.app.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -15,7 +14,6 @@ import com.DoItBetter.app.dto.LoginUserDto;
 import com.DoItBetter.app.dto.RegisterUserDto;
 import com.DoItBetter.app.model.User;
 import com.DoItBetter.app.response.LoginResponse;
-import com.DoItBetter.app.response.ResponseErrorVo;
 import com.DoItBetter.app.response.ResponseVO;
 import com.DoItBetter.app.response.ResponseVOBuilder;
 import com.DoItBetter.app.service.AuthenticationService;

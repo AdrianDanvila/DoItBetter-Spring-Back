@@ -16,12 +16,12 @@ import com.DoItBetter.app.service.UserService;
 public class RoutineServiceImpl implements UserService {
 	@Autowired
 	RoutineRepository routineRepository;
+	@SuppressWarnings("unused")
 	@Autowired
 	private ModelMapper modelMapper;
 
 	@Override
 	public ArrayList<User> findAllUser() {
-		// TODO Auto-generated method stu b
 		throw new UnsupportedOperationException("Unimplemented method 'findAllEmployee'");
 	}
 
