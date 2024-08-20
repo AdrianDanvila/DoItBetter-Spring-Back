@@ -2,7 +2,6 @@ package com.DoItBetter.app.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -19,39 +18,25 @@ import lombok.RequiredArgsConstructor;
 @Configuration
 @EnableMethodSecurity
 @RequiredArgsConstructor
-public class SecurityConfig {
+public class SecurityConfig  {
+
     @Bean
     public static PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
+
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         
         return http
                 .csrf(csrf -> csrf.disable())
                 .headers(headers -> headers.frameOptions().disable())
-                .authorizeHttpRequests(authorize -> 
-                        authorize
-                        .requestMatchers(HttpMethod.OPTIONS).permitAll()
-                        .requestMatchers(HttpMethod.GET, "/users","/h2-console/**").permitAll()
-                        .anyRequest().authenticated())
-                .httpBasic(Customizer.withDefaults())
+                .authorizeHttpRequests(requests  -> 
+                        requests 
+                        .anyRequest().anonymous()
+                        )
                 .build();
     }
 
-    @Bean
-    UserDetailsService userDetailsService() {
-        UserDetails anar = User.builder()
-                .username("test1")
-                .password(passwordEncoder().encode("test1"))
-                .roles("USER")
-                .build();
-
-        UserDetails rufat = User.builder()
-                .username("test2")
-                .password(passwordEncoder().encode("test2"))
-                .roles("ADMIN")
-                .build();
-        return new InMemoryUserDetailsManager(anar, rufat);
-    }
+   
 }
