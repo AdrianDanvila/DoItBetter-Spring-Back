@@ -35,16 +35,19 @@ public class SecurityConfiguration {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http.csrf()
 				.disable()
-				.headers(headers -> headers.frameOptions().disable())
 				.authorizeHttpRequests()
-				.anyRequest()
-				.permitAll()
+				.requestMatchers("/auth/**").permitAll() // Permitir todas las solicitudes a "/auth/**"
+				.anyRequest().authenticated() // Requiere autenticación para cualquier otra solicitud
 				.and()
 				.sessionManagement()
-				.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+				.sessionCreationPolicy(SessionCreationPolicy.STATELESS) // Configurar la política de sesión sin estado
 				.and()
 				.authenticationProvider(authenticationProvider)
-				.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+				.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class); // Añadir filtro JWT
+																																																// antes del filtro de
+																																																// autenticación
+																																																// estándar
+
 		return http.build();
 	}
 

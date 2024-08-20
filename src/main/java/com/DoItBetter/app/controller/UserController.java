@@ -2,6 +2,7 @@ package com.DoItBetter.app.controller;
 
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.security.core.Authentication;
+
+import com.DoItBetter.app.dto.UserDto;
 import com.DoItBetter.app.model.User;
 import com.DoItBetter.app.service.impl.UserServiceImpl;
 
@@ -21,18 +24,20 @@ public class UserController {
 	@Autowired
 	UserServiceImpl userServiceImpl;
 
+	@Autowired
+	private ModelMapper modelMapper;
+
 	public UserController(UserServiceImpl userServiceImpl) {
 		this.userServiceImpl = userServiceImpl;
 	}
 
 	@GetMapping("/me")
-	public ResponseEntity<User> authenticatedUser() {
-		System.out.println("aquiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
+	public ResponseEntity<UserDto> authenticatedUser() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
 		User currentUser = (User) authentication.getPrincipal();
-
-		return ResponseEntity.ok(currentUser);
+		UserDto user = modelMapper.map(currentUser, UserDto.class);
+		return ResponseEntity.ok(user);
 	}
 
 	@GetMapping("")
