@@ -1,7 +1,7 @@
-package com.DoItBetter.app.model;
+package com.DoItBetter.app.response;
 
 public class ResponseVO<T> {
-  private String status;
+  private int status;
   private String result;
   private ResponseErrorVo error;
   private T data;
@@ -26,11 +26,11 @@ public class ResponseVO<T> {
     this.error = error;
   }
 
-  public String getStatus() {
+  public int getStatus() {
     return status;
   }
 
-  public void setStatus(String status) {
+  public void setStatus(int status) {
     this.status = status;
   }
 

@@ -1,4 +1,4 @@
-package com.DoItBetter.app.model;
+package com.DoItBetter.app.response;
 
 public class LoginResponse {
   private String token;

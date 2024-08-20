@@ -14,9 +14,12 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.NoHandlerFoundException;
-import org.springframework.http.MediaType;
 
-import com.DoItBetter.app.model.ApiErrorResponse;
+import com.DoItBetter.app.response.ResponseErrorVo;
+import com.DoItBetter.app.response.ResponseVO;
+import com.DoItBetter.app.response.ResponseVOBuilder;
+
+import org.springframework.http.MediaType;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -24,7 +27,6 @@ public class GlobalExceptionHandler {
   public ProblemDetail handleSecurityException(Exception exception) {
     ProblemDetail errorDetail = null;
 
-    // TODO send this stack trace to an observability tool
     exception.printStackTrace();
 
     if (exception instanceof BadCredentialsException) {
@@ -63,9 +65,11 @@ public class GlobalExceptionHandler {
   }
 
   @ExceptionHandler({ NoHandlerFoundException.class })
-  public ResponseEntity<ApiErrorResponse> handleNoHandlerFoundException(
-      NoHandlerFoundException ex, HttpServletRequest httpServletRequest) {
-    ApiErrorResponse apiErrorResponse = new ApiErrorResponse(404, "Resource not found");
-    return ResponseEntity.status(HttpStatus.NOT_FOUND).contentType(MediaType.APPLICATION_JSON).body(apiErrorResponse);
+  public ResponseEntity<ResponseVO> handleNoHandlerFoundException(NoHandlerFoundException ex,
+      HttpServletRequest httpServletRequest) {
+
+    return ResponseEntity.status(HttpStatus.NOT_FOUND).contentType(MediaType.APPLICATION_JSON)
+        .body(new ResponseVOBuilder<>()
+            .error(new ResponseErrorVo(HttpStatus.NOT_FOUND.value(), ex.getMessage(), "Resource not found")).build());
   }
 }

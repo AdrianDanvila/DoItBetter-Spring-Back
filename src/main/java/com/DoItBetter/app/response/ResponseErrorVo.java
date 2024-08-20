@@ -1,29 +1,29 @@
-package com.DoItBetter.app.model;
+package com.DoItBetter.app.response;
 
 import org.springframework.util.ObjectUtils;
 
 public class ResponseErrorVo {
-  private String code;
+  private int code;
   private String message;
   private String description;
 
-  public ResponseErrorVo(String code, String message) {
+  public ResponseErrorVo(int code, String message) {
     this.code = code;
     this.message = message;
     this.description = message;
   }
 
-  public ResponseErrorVo(String code, String message, String description) {
+  public ResponseErrorVo(int code, String message, String description) {
     this.code = code;
     this.message = message;
     this.description = description;
   }
 
-  public String getCode() {
+  public int getCode() {
     return code;
   }
 
-  public void setCode(String code) {
+  public void setCode(int code) {
     this.code = code;
   }
 
