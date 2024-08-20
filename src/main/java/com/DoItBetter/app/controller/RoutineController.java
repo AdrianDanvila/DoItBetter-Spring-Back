@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/routine")
 public class RoutineController {
 
-    @GetMapping("")
-    @ResponseBody
-    public String getRoutine(){
-        return "Rutina";
-    }    
+	@GetMapping("")
+	@ResponseBody
+	public String getRoutine() {
+		return "Rutina";
+	}
 }

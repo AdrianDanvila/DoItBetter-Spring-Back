@@ -11,18 +11,18 @@ import com.DoItBetter.app.service.UserService;
 
 @Service
 public class UserServiceImpl implements UserService {
-    @Autowired
-    UserRepository userRepository;
+	@Autowired
+	UserRepository userRepository;
 
-    @Override
-    public ArrayList<User> findAllUser() {
-        // TODO Auto-generated method stu b
-        throw new UnsupportedOperationException("Unimplemented method 'findAllEmployee'");
-    }
+	@Override
+	public ArrayList<User> findAllUser() {
+		// TODO Auto-generated method stu b
+		throw new UnsupportedOperationException("Unimplemented method 'findAllEmployee'");
+	}
 
-    public void saveUser(){
-        User tempUser =  new User();
-        userRepository.save(tempUser);
-    }
+	public void saveUser() {
+		User tempUser = new User();
+		userRepository.save(tempUser);
+	}
 
 }

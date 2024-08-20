@@ -5,5 +5,5 @@ import java.util.ArrayList;
 import com.DoItBetter.app.model.User;
 
 public interface UserService {
-    ArrayList<User> findAllUser();
+	ArrayList<User> findAllUser();
 }

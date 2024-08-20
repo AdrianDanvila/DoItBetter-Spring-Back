@@ -13,18 +13,18 @@ import com.DoItBetter.app.service.impl.UserServiceImpl;
 @RequestMapping("/user")
 public class UserController {
 
-    @Autowired
-    UserServiceImpl userServiceImpl;
+	@Autowired
+	UserServiceImpl userServiceImpl;
 
-    @GetMapping("")
-    @ResponseBody
-    public String getUser(){
-        return "HOLA";
-    }   
-    
-    @PostMapping("")
-    public String postUser(){
-        userServiceImpl.saveUser();
-        return"succesful";
-    } 
+	@GetMapping("")
+	@ResponseBody
+	public String getUser() {
+		return "HOLA";
+	}
+
+	@PostMapping("")
+	public String postUser() {
+		userServiceImpl.saveUser();
+		return "succesful";
+	}
 }
