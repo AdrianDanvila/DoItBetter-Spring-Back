@@ -1,6 +1,7 @@
 package com.DoItBetter.app.service.impl;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,14 @@ public class UserServiceImpl implements UserService {
 	public void saveUser() {
 		User tempUser = new User();
 		userRepository.save(tempUser);
+	}
+
+	public List<User> allUsers() {
+		List<User> users = new ArrayList<>();
+
+		userRepository.findAll().forEach(users::add);
+
+		return users;
 	}
 
 }
