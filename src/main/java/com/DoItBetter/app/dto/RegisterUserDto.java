@@ -8,7 +8,7 @@ public class RegisterUserDto {
   private String name;
 
   private Number age;
-
+   
   private Number weight;
 
   private Number height;

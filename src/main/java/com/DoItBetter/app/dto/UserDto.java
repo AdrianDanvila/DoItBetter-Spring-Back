@@ -5,6 +5,8 @@ public class UserDto {
 
   private String name;
 
+  private Number age;
+
   public String getEmail() {
     return email;
   }
