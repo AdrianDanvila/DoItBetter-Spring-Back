@@ -1,6 +1,9 @@
 package com.DoItBetter.app.response;
 
+import com.DoItBetter.app.dto.UserDto;
+
 public class LoginResponse {
+  private UserDto user;
   private String token;
 
   private long expiresIn;
@@ -22,5 +25,14 @@ public class LoginResponse {
   public LoginResponse setToken(String token) {
     this.token = token;
     return this;
+  }
+
+  public LoginResponse setUser(UserDto user) {
+    this.user = user;
+    return this;
+  }
+
+  public UserDto getUser() {
+    return user;
   }
 }

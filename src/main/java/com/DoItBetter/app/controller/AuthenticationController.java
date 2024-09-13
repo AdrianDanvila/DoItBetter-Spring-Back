@@ -1,5 +1,6 @@
 package com.DoItBetter.app.controller;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.DoItBetter.app.dto.LoginUserDto;
 import com.DoItBetter.app.dto.RegisterUserDto;
+import com.DoItBetter.app.dto.UserDto;
 import com.DoItBetter.app.model.User;
 import com.DoItBetter.app.response.LoginResponse;
 import com.DoItBetter.app.response.ResponseVO;
@@ -26,7 +28,8 @@ public class AuthenticationController {
 
   @Autowired
   private final JwtService jwtService;
-
+  @Autowired
+  private ModelMapper modelMapper;
   private final AuthenticationService authenticationService;
 
   public AuthenticationController(JwtService jwtService, AuthenticationService authenticationService) {
@@ -38,18 +41,34 @@ public class AuthenticationController {
   public ResponseEntity<ResponseVO<User>> register(@RequestBody RegisterUserDto registerUserDto) {
     User registeredUser = authenticationService.signup(registerUserDto);
     return ResponseEntity.status(HttpStatus.ACCEPTED).contentType(MediaType.APPLICATION_JSON)
-        .body(new ResponseVOBuilder<User>().addData(registeredUser).build());
+        .body(new ResponseVOBuilder<User>()
+            .addData(registeredUser)
+            .build());
+  }
 
+  @PostMapping("/token")
+  public String testTokenExpire() {
+
+    return "TODO";
   }
 
   @PostMapping("/login")
-  public ResponseEntity<LoginResponse> authenticate(@RequestBody LoginUserDto loginUserDto) {
+  public ResponseEntity<ResponseVO<LoginResponse>> authenticate(@RequestBody LoginUserDto loginUserDto) {
     User authenticatedUser = authenticationService.authenticate(loginUserDto);
 
     String jwtToken = jwtService.generateToken(authenticatedUser);
 
-    LoginResponse loginResponse = new LoginResponse().setToken(jwtToken).setExpiresIn(jwtService.getExpirationTime());
+    UserDto user = modelMapper.map(authenticatedUser, UserDto.class);
 
-    return ResponseEntity.ok(loginResponse);
+    LoginResponse loginResponse = new LoginResponse()
+        .setToken(jwtToken)
+        .setExpiresIn(jwtService.getExpirationTime())
+        .setUser(user);
+
+    return ResponseEntity.status(HttpStatus.ACCEPTED)
+        .contentType(MediaType.APPLICATION_JSON)
+        .body(new ResponseVOBuilder<LoginResponse>()
+            .addData(loginResponse)
+            .build());
   }
 }
