@@ -94,11 +94,19 @@ public class RoutineController {
 		// Responde con 200 y la lista de posts
 	}
 
+	@PostMapping("/copy/{id}")
+	@ResponseBody
+	public ResponseEntity<ResponseVO<RoutineDto>> copyRoutine(@PathVariable Long id) {
+		RoutineDto savedRoutine = routineServiceImpl.copyRoutine(id);
+		ResponseEntity.ok();
+		return ResponseEntity.status(HttpStatus.ACCEPTED).contentType(MediaType.APPLICATION_JSON)
+				.body(new ResponseVOBuilder<RoutineDto>().addData(savedRoutine).build());
+	}
+
 	@GetMapping("/{id}/exercises")
 	public ResponseEntity<ResponseVO<List<RoutineExerciseResponseDto>>> getRoutineExercises(@PathVariable Long id) {
 
 		List<RoutineExerciseResponseDto> response = routineServiceImpl.getExercises(id);
-
 		ResponseEntity.ok();
 		return ResponseEntity.status(HttpStatus.ACCEPTED).contentType(MediaType.APPLICATION_JSON)
 				.body(new ResponseVOBuilder<List<RoutineExerciseResponseDto>>().addData(response).build());

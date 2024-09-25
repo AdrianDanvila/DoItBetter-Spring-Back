@@ -11,6 +11,16 @@ public class RoutineDto {
 
   private String description;
 
+  private boolean published;
+
+  public void setPublished(boolean published) {
+    this.published = published;
+  }
+
+  public boolean isPublished() {
+    return published;
+  }
+
   private Long user_id;
 
   public void setUser_id(Long user_id) {

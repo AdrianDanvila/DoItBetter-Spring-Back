@@ -20,16 +20,21 @@ public class RoutineExercise {
   @Column(nullable = true)
   Long weight = (long) 0;
 
-  public void setWeight(Long weight) {
+  public RoutineExercise setWeight(Long weight) {
     this.weight = weight;
+    return this;
+
   }
 
-  public void setSets(Long sets) {
+  public RoutineExercise setSets(Long sets) {
     this.sets = sets;
+    return this;
+
   }
 
-  public void setReps(Long reps) {
+  public RoutineExercise setReps(Long reps) {
     this.reps = reps;
+    return this;
   }
 
   public Long getWeight() {
@@ -44,8 +49,9 @@ public class RoutineExercise {
     return reps;
   }
 
-  public void setExercise(Exercise exercise) {
+  public RoutineExercise setExercise(Exercise exercise) {
     this.exercise = exercise;
+    return this;
   }
 
   public Exercise getExercise() {

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.DoItBetter.app.dto.CreateRoutineDto;
 import com.DoItBetter.app.dto.RoutineDto;
 import com.DoItBetter.app.dto.RoutineExerciseResponseDto;
+import com.DoItBetter.app.model.Exercise;
 import com.DoItBetter.app.model.Routine;
 import com.DoItBetter.app.model.RoutineExercise;
 import com.DoItBetter.app.model.User;
@@ -32,12 +33,36 @@ public class RoutineServiceImpl implements UserService {
 	private ModelMapper modelMapper;
 
 	public RoutineDto saveRoutine(CreateRoutineDto createRoutineDto) {
+
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
 		User currentUser = (User) authentication.getPrincipal();
 		Routine tempRoutine = new Routine(createRoutineDto.getName(), createRoutineDto.getDescription(), currentUser);
 
 		RoutineDto savedRoutine = modelMapper.map(routineRepository.save(tempRoutine), RoutineDto.class);
+
+		return savedRoutine;
+	}
+
+	public RoutineDto copyRoutine(Long id) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+		User currentUser = (User) authentication.getPrincipal();
+		Routine originalRoutine = routineRepository.getReferenceById(id);
+		Routine routine = new Routine()
+				.setDescription(originalRoutine.getDescription())
+				.setName(originalRoutine.getName())
+				.setUser(currentUser)
+				.setExercises(new ArrayList<>());
+		originalRoutine.getExercises().forEach(routineExercise -> {
+			RoutineExercise tempRoutineExercise = new RoutineExercise()
+					.setExercise(routineExercise.getExercise())
+					.setReps(routineExercise.getReps())
+					.setSets(routineExercise.getSets())
+					.setWeight(routineExercise.getWeight());
+			routine.getExercises().add(tempRoutineExercise);
+		});
+		RoutineDto savedRoutine = modelMapper.map(routineRepository.save(routine), RoutineDto.class);
 
 		return savedRoutine;
 	}
@@ -156,15 +181,20 @@ public class RoutineServiceImpl implements UserService {
 
 	public List<RoutineExerciseResponseDto> getExercises(long id) {
 		Routine tempRoutine = routineRepository.getReferenceById(id);
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		List<RoutineExerciseResponseDto> routineExerciseListDto = new ArrayList<>();
 
-		tempRoutine.getExercises().forEach(routineExercise -> {
-			RoutineExerciseResponseDto tempRoutineExercise = modelMapper.map(routineExercise,
-					RoutineExerciseResponseDto.class);
-			tempRoutineExercise.setId(routineExercise.getExercise().getId());
-			tempRoutineExercise.setName(routineExercise.getExercise().getName());
-			routineExerciseListDto.add(tempRoutineExercise);
-		});
+		User currentUser = (User) authentication.getPrincipal();
+		if ((tempRoutine.getUser().getId() == currentUser.getId()) || tempRoutine.isPublished()) {
+			tempRoutine.getExercises().forEach(routineExercise -> {
+				RoutineExerciseResponseDto tempRoutineExercise = modelMapper.map(routineExercise,
+						RoutineExerciseResponseDto.class);
+				tempRoutineExercise.setId(routineExercise.getExercise().getId());
+				tempRoutineExercise.setName(routineExercise.getExercise().getName());
+				routineExerciseListDto.add(tempRoutineExercise);
+			});
+		}
+
 		return routineExerciseListDto;
 	}
 

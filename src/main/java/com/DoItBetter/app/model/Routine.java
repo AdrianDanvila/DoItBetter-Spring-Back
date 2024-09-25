@@ -65,28 +65,34 @@ public class Routine {
   @Column(name = "updated_at")
   private Date updatedAt;
 
-  public void setUser(User user) {
+  public Routine setUser(User user) {
     this.user = user;
+    return this;
   }
 
   public void setUpdatedAt(Date updatedAt) {
     this.updatedAt = updatedAt;
   }
 
-  public void setName(String name) {
+  public Routine setName(String name) {
     this.name = name;
+    return this;
+
   }
 
   public void setId(Integer id) {
     this.id = id;
   }
 
-  public void setExercises(List<RoutineExercise> exercises) {
+  public Routine setExercises(List<RoutineExercise> exercises) {
     this.exercises = exercises;
+    return this;
+
   }
 
-  public void setDescription(String description) {
+  public Routine setDescription(String description) {
     this.description = description;
+    return this;
   }
 
   public void setCreatedAt(Date createdAt) {
