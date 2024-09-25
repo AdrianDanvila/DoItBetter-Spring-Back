@@ -34,7 +34,9 @@ public class SecurityConfiguration {
 	@SuppressWarnings("removal")
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		http.csrf()
+		http.cors()
+				.and()
+				.csrf()
 				.disable()
 				.headers(headers -> headers.frameOptions().disable())
 				.authorizeHttpRequests()
@@ -46,11 +48,7 @@ public class SecurityConfiguration {
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS) // Configurar la política de sesión sin estado
 				.and()
 				.authenticationProvider(authenticationProvider)
-				.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class); // Añadir filtro JWT
-																																																// antes del filtro de
-																																																// autenticación
-																																																// estándar
-
+				.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 		return http.build();
 	}
 
@@ -59,7 +57,7 @@ public class SecurityConfiguration {
 		CorsConfiguration configuration = new CorsConfiguration();
 
 		configuration.setAllowedOrigins(List.of("*"));
-		configuration.setAllowedMethods(List.of("GET", "POST"));
+		configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
 		configuration.setAllowedHeaders(List.of("Authorization", "Content-Type", "Access-Control-Allow-Origin"));
 
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
