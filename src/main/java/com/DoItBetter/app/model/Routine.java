@@ -1,13 +1,16 @@
 package com.DoItBetter.app.model;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -43,11 +46,12 @@ public class Routine {
   private String description;
 
   @Column(nullable = false)
-  @ColumnDefault("true")
-  private boolean published = true;
+  private boolean published = false;
 
   @Column(nullable = true)
-  private List<String> exercises;
+  @ElementCollection
+  @CollectionTable(name = "routine_exercises", joinColumns = @JoinColumn(name = "routine_id"))
+  private List<RoutineExercise> exercises;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "user_id")
@@ -77,7 +81,7 @@ public class Routine {
     this.id = id;
   }
 
-  public void setExercises(List<String> exercises) {
+  public void setExercises(List<RoutineExercise> exercises) {
     this.exercises = exercises;
   }
 
@@ -105,7 +109,7 @@ public class Routine {
     return id;
   }
 
-  public List<String> getExercises() {
+  public List<RoutineExercise> getExercises() {
     return exercises;
   }
 
@@ -123,6 +127,25 @@ public class Routine {
 
   public boolean isPublished() {
     return published;
+  }
+
+  public void addExercise(RoutineExercise exercise) throws Exception {
+    List<RoutineExercise> routineExercises = new ArrayList<>(this.getExercises());
+    for (RoutineExercise routineExercise : routineExercises) {
+      if (routineExercise.getExercise().getId() == exercise.getExercise().getId()) {
+        throw new Exception("Exception message");
+      }
+    }
+    this.getExercises().add(exercise);
+  }
+
+  public void deleteExercise(RoutineExercise exercise) {
+    List<RoutineExercise> routineExercises = new ArrayList<>(this.getExercises());
+    for (RoutineExercise routineExercise : routineExercises) {
+      if (routineExercise.getExercise().getId() == exercise.getExercise().getId()) {
+        this.getExercises().remove(routineExercise);
+      }
+    }
   }
 
 }
