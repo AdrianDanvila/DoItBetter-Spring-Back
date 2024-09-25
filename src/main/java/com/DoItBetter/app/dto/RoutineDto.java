@@ -2,14 +2,14 @@ package com.DoItBetter.app.dto;
 
 import java.util.List;
 
+import com.DoItBetter.app.model.RoutineExercise;
+
 public class RoutineDto {
   private Integer id;
 
   private String name;
 
   private String description;
-
-  private List<String> exercises;
 
   private Long user_id;
 
@@ -23,10 +23,6 @@ public class RoutineDto {
 
   public void setId(Integer id) {
     this.id = id;
-  }
-
-  public void setExercises(List<String> exercises) {
-    this.exercises = exercises;
   }
 
   public void setDescription(String description) {
@@ -43,10 +39,6 @@ public class RoutineDto {
 
   public Integer getId() {
     return id;
-  }
-
-  public List<String> getExercises() {
-    return exercises;
   }
 
   public String getDescription() {
