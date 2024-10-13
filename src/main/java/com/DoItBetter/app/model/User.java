@@ -43,6 +43,12 @@ public class User implements UserDetails {
 	@Column(nullable = false)
 	private String name;
 
+	@Column()
+	private String profilePictureName;
+
+	@Column()
+	private String profilePicturePath;
+
 	@Column(name = "age", nullable = false)
 	private Number age;
 
@@ -182,4 +188,19 @@ public class User implements UserDetails {
 		this.weight = weight;
 	}
 
+	public void setProfilePicturePath(String profilePicturePath) {
+		this.profilePicturePath = profilePicturePath;
+	}
+
+	public void setProfilePictureName(String profilePictureName) {
+		this.profilePictureName = profilePictureName;
+	}
+
+	public String getProfilePictureName() {
+		return profilePictureName;
+	}
+
+	public String getProfilePicturePath() {
+		return profilePicturePath;
+	}
 }

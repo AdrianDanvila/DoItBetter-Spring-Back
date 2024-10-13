@@ -67,6 +67,13 @@ public class RoutineController {
 		return "succesful";
 	}
 
+	@PostMapping("/{id}")
+	@ResponseBody
+	public String togglePublishedRoutine(@PathVariable Long id) {
+		routineServiceImpl.toggleRoutinePublished(id);
+		return "succesful";
+	}
+
 	@GetMapping("/me")
 	@ResponseBody
 	public ResponseEntity<ResponseVO<List<RoutineDto>>> getAllRoutinesByToken() {
@@ -122,6 +129,7 @@ public class RoutineController {
 		routineExercise.setExercise(exercise);
 		routineExercise.setSets(routineExerciseDTO.getSets());
 		routineExercise.setReps(routineExerciseDTO.getReps());
+		routineExercise.setWeight(routineExerciseDTO.getWeight());
 		List<RoutineExerciseResponseDto> response = routineServiceImpl.addExercise(id, routineExercise);
 
 		ResponseEntity.ok();

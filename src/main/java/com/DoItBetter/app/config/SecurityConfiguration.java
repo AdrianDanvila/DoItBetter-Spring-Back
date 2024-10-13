@@ -40,6 +40,7 @@ public class SecurityConfiguration {
 				.disable()
 				.headers(headers -> headers.frameOptions().disable())
 				.authorizeHttpRequests()
+				.requestMatchers("/uploads/**").permitAll() // Permitir todas las solicitudes a "/auth/**"
 				.requestMatchers("/auth/**").permitAll() // Permitir todas las solicitudes a "/auth/**"
 				.requestMatchers("/h2-ui/**").permitAll() // Permitir todas las solicitudes a "/auth/**"
 				.anyRequest().authenticated() // Requiere autenticación para cualquier otra solicitud

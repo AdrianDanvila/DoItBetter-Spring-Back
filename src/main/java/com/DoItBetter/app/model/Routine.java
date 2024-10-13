@@ -42,6 +42,9 @@ public class Routine {
   @Column(nullable = false)
   private String name;
 
+  @Column()
+  private String routinePicturePath = "default.png";
+
   @Column(nullable = false)
   private String description;
 
@@ -139,6 +142,8 @@ public class Routine {
     List<RoutineExercise> routineExercises = new ArrayList<>(this.getExercises());
     for (RoutineExercise routineExercise : routineExercises) {
       if (routineExercise.getExercise().getId() == exercise.getExercise().getId()) {
+        this.getExercises().remove(routineExercise);
+        this.getExercises().add(exercise);
         throw new Exception("Exception message");
       }
     }
@@ -152,6 +157,14 @@ public class Routine {
         this.getExercises().remove(routineExercise);
       }
     }
+  }
+
+  public void setRoutinePicturePath(String routinePicturePath) {
+    this.routinePicturePath = routinePicturePath;
+  }
+
+  public String getRoutinePicturePath() {
+    return routinePicturePath;
   }
 
 }

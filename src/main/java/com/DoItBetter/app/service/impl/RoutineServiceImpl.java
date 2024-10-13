@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import com.DoItBetter.app.dto.CreateRoutineDto;
 import com.DoItBetter.app.dto.RoutineDto;
 import com.DoItBetter.app.dto.RoutineExerciseResponseDto;
-import com.DoItBetter.app.model.Exercise;
 import com.DoItBetter.app.model.Routine;
 import com.DoItBetter.app.model.RoutineExercise;
 import com.DoItBetter.app.model.User;
@@ -76,6 +75,7 @@ public class RoutineServiceImpl implements UserService {
 		routineRepository.findAllByUserId(currentUser.getId()).forEach(routine -> {
 			RoutineDto tempRoutineDto = modelMapper.map(routine, RoutineDto.class);
 			tempRoutineDto.setUser_id(routine.getUser().getId());
+			tempRoutineDto.setUser_name(routine.getUser().getName());
 			routines.add(tempRoutineDto);
 		});
 		return routines;
@@ -97,6 +97,7 @@ public class RoutineServiceImpl implements UserService {
 		routineRepository.findAllByUserIdAndPublishedTrue(userId).forEach(routine -> {
 			RoutineDto tempRoutineDto = modelMapper.map(routine, RoutineDto.class);
 			tempRoutineDto.setUser_id(routine.getUser().getId());
+			tempRoutineDto.setUser_name(routine.getUser().getName());
 			routines.add(tempRoutineDto);
 		});
 		return routines;
@@ -117,6 +118,7 @@ public class RoutineServiceImpl implements UserService {
 		routineRepository.findAllByPublishedTrue().forEach(routine -> {
 			RoutineDto tempRoutineDto = modelMapper.map(routine, RoutineDto.class);
 			tempRoutineDto.setUser_id(routine.getUser().getId());
+			tempRoutineDto.setUser_name(routine.getUser().getName());
 			routines.add(tempRoutineDto);
 		});
 		return routines;
@@ -127,8 +129,18 @@ public class RoutineServiceImpl implements UserService {
 		return routine;
 	}
 
+	public Routine toggleRoutinePublished(long id) {
+		Routine routine = routineRepository.getReferenceById(id);
+		routine.setPublished(!routine.isPublished());
+		routineRepository.save(routine);
+		return routine;
+	}
+
 	public RoutineDto getRoutineById(long id) {
-		RoutineDto tempRoutineDto = modelMapper.map(routineRepository.getReferenceById(id), RoutineDto.class);
+		Routine routine = routineRepository.getReferenceById(id);
+		RoutineDto tempRoutineDto = modelMapper.map(routine, RoutineDto.class);
+		tempRoutineDto.setUser_id(routine.getUser().getId());
+		tempRoutineDto.setUser_name(routine.getUser().getName());
 		return tempRoutineDto;
 	}
 
@@ -139,6 +151,8 @@ public class RoutineServiceImpl implements UserService {
 		try {
 			tempRoutine.addExercise(exercise);
 		} catch (Exception e) {
+			routineRepository.save(tempRoutine);
+
 			tempRoutine.getExercises().forEach(routineExercise -> {
 				RoutineExerciseResponseDto tempRoutineExercise = modelMapper.map(routineExercise,
 						RoutineExerciseResponseDto.class);

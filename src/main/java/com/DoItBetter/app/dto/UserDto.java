@@ -13,6 +13,16 @@ public class UserDto {
 
   private Number height;
 
+  private String profilePictureName;
+
+  public void setProfilePictureName(String profilePictureName) {
+    this.profilePictureName = profilePictureName;
+  }
+
+  public String getProfilePictureName() {
+    return profilePictureName;
+  }
+
   public String getEmail() {
     return email;
   }
