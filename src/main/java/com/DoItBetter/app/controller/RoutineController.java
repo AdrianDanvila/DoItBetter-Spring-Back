@@ -1,5 +1,6 @@
 package com.DoItBetter.app.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +14,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.DoItBetter.app.dto.CreateRoutineDto;
 import com.DoItBetter.app.dto.RoutineDto;
@@ -155,4 +158,30 @@ public class RoutineController {
 				.body(new ResponseVOBuilder<List<RoutineExerciseResponseDto>>().addData(response).build());
 	}
 
+	@PostMapping("/upload/{id}")
+	public ResponseEntity<ResponseVO<RoutineDto>> uploadProfilePicture(
+			@PathVariable Long id,
+			@RequestParam("file") MultipartFile file) {
+
+		try {
+			RoutineDto routineDto = routineServiceImpl.saveRoutinePicture(id, file);
+			return ResponseEntity.status(HttpStatus.ACCEPTED).contentType(MediaType.APPLICATION_JSON)
+					.body(new ResponseVOBuilder<RoutineDto>().addData(routineDto).build());
+		} catch (IllegalArgumentException e) {
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@PostMapping("/comment/{routineId}")
+	@ResponseBody
+	public ResponseEntity<ResponseVO<RoutineDto>> commentRoutine(@PathVariable Long routineId,
+			@RequestBody String content) {
+		System.out.println(content);
+		RoutineDto tempRoutine = routineServiceImpl.addComment(routineId, content);
+		ResponseEntity.ok();
+		return ResponseEntity.status(HttpStatus.ACCEPTED).contentType(MediaType.APPLICATION_JSON)
+				.body(new ResponseVOBuilder<RoutineDto>().addData(tempRoutine).build());
+	}
 }

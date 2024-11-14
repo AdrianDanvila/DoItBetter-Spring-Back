@@ -28,9 +28,9 @@ public class ExerciseController {
 
 	@GetMapping("")
 	public ResponseEntity<ResponseVO<List<Exercise>>> allExercises() {
-		List<Exercise> users = exerciseServiceImpl.allExercises();
+		List<Exercise> exercise = exerciseServiceImpl.allExercises();
 
 		return ResponseEntity.status(HttpStatus.ACCEPTED).contentType(MediaType.APPLICATION_JSON)
-				.body(new ResponseVOBuilder<List<Exercise>>().addData(users).build());
+				.body(new ResponseVOBuilder<List<Exercise>>().addData(exercise).build());
 	}
 }

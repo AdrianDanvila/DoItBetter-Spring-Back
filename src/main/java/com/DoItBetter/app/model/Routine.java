@@ -4,7 +4,6 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -18,14 +17,14 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "Rotuines")
+@Table(name = "Routines")
 public class Routine {
 
   public Routine() {
-
   }
 
   public Routine(String name, String description, User user) {
@@ -45,6 +44,9 @@ public class Routine {
   @Column()
   private String routinePicturePath = "default.png";
 
+  @Column()
+  private String routinePictureName = "default.png";
+
   @Column(nullable = false)
   private String description;
 
@@ -55,6 +57,11 @@ public class Routine {
   @ElementCollection
   @CollectionTable(name = "routine_exercises", joinColumns = @JoinColumn(name = "routine_id"))
   private List<RoutineExercise> exercises;
+
+  @Column(nullable = true)
+  @ElementCollection
+  @CollectionTable(name = "routine_comments", joinColumns = @JoinColumn(name = "routine_id"))
+  private List<Comment> comments;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "user_id")
@@ -159,12 +166,32 @@ public class Routine {
     }
   }
 
+  public void addComment(Comment comment) {
+    this.getComments().add(0, comment);
+  }
+
   public void setRoutinePicturePath(String routinePicturePath) {
     this.routinePicturePath = routinePicturePath;
   }
 
   public String getRoutinePicturePath() {
     return routinePicturePath;
+  }
+
+  public void setRoutinePictureName(String routinePictureName) {
+    this.routinePictureName = routinePictureName;
+  }
+
+  public String getRoutinePictureName() {
+    return routinePictureName;
+  }
+
+  public void setComments(List<Comment> comments) {
+    this.comments = comments;
+  }
+
+  public List<Comment> getComments() {
+    return comments;
   }
 
 }

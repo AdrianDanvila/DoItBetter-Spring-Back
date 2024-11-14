@@ -11,10 +11,18 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "Exercises")
 public class Exercise {
+  public Exercise() {
+
+  }
+
+  public Exercise(Long id, String name, String description, String photo) {
+    this.id = id;
+    this.name = name;
+    this.photo = photo;
+    this.description = description;
+  }
 
   @Id
-  @SequenceGenerator(name = "usuario_seq", sequenceName = "usuario_sequence", allocationSize = 1, initialValue = 1)
-  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "usuario_seq")
   private Long id;
 
   @Column(nullable = false)

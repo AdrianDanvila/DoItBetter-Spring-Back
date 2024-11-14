@@ -58,7 +58,7 @@ public class UserServiceImpl implements UserService {
 		}
 
 		//
-		String fileName = userId + "_" + file.getOriginalFilename();
+		String fileName = userId + ".jpg";
 		Path path = Paths.get(UPLOAD_DIRECTORY + fileName);
 		Files.createDirectories(path.getParent());
 		Files.write(path, file.getBytes());
