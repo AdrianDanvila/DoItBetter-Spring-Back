@@ -12,12 +12,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.security.core.Authentication;
 
+import com.DoItBetter.app.dto.RegisterUserDto;
 import com.DoItBetter.app.dto.UserDto;
 import com.DoItBetter.app.model.User;
 import com.DoItBetter.app.response.ResponseVO;
@@ -56,6 +58,18 @@ public class UserController {
 
 		return ResponseEntity.status(HttpStatus.ACCEPTED).contentType(MediaType.APPLICATION_JSON)
 				.body(new ResponseVOBuilder<List<UserDto>>().addData(users).build());
+	}
+
+	@PostMapping("/update")
+	public ResponseEntity<ResponseVO<UserDto>> register(
+			@RequestBody UserDto userDto) {
+		User registeredUser = userServiceImpl.updateUser(userDto);
+		UserDto user = modelMapper.map(registeredUser, UserDto.class);
+
+		return ResponseEntity.status(HttpStatus.ACCEPTED).contentType(MediaType.APPLICATION_JSON)
+				.body(new ResponseVOBuilder<UserDto>()
+						.addData(user)
+						.build());
 	}
 
 	@PostMapping("/upload/{userId}")

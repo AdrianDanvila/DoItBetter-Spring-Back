@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.DoItBetter.app.dto.RegisterUserDto;
 import com.DoItBetter.app.dto.UserDto;
 import com.DoItBetter.app.model.User;
 import com.DoItBetter.app.repository.UserRepository;
@@ -34,6 +35,17 @@ public class UserServiceImpl implements UserService {
 	public void saveUser() {
 		User tempUser = new User();
 		userRepository.save(tempUser);
+	}
+
+	public User updateUser(UserDto userDto) {
+		User tempUser = userRepository.findById(userDto.getId()).orElse(null);
+		tempUser.setAge(userDto.getAge());
+		tempUser.setName(userDto.getName());
+		tempUser.setHeight(userDto.getHeight());
+		tempUser.setWeight(userDto.getWeight());
+		tempUser.setEmail(userDto.getEmail());
+		userRepository.save(tempUser);
+		return tempUser;
 	}
 
 	public List<UserDto> allUsers() {
