@@ -18,12 +18,13 @@ public class DataLoader implements CommandLineRunner {
   @Override
   public void run(String... args) throws Exception {
     exerciseRepository
-        .save(new Exercise((long) 1, "exercises.squat.name", "exercises.squat.description", "/squat.png"));
+        .save(new Exercise((long) 1, "exercises.squat.name", "exercises.squat.description", "/squat.png", ""));
     exerciseRepository
         .save(new Exercise((long) 2, "exercises.biceps_curl.name", "exercises.biceps_curl.description",
-            "/biceps_curl.png"));
+            "/biceps_curl.png", ""));
     exerciseRepository
         .save(
-            new Exercise((long) 3, "exercises.benchpress.name", "exercises.benchpress.description", "/benchpress.png"));
+            new Exercise((long) 3, "exercises.benchpress.name", "exercises.benchpress.description", "/benchpress.png",
+                ""));
   }
 }

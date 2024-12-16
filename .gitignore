@@ -6,7 +6,6 @@ target/
 
 ### STS ###
 /data/*
-/uploads/*
 .apt_generated
 .classpath
 .factorypath

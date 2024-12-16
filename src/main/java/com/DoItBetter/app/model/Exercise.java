@@ -15,11 +15,12 @@ public class Exercise {
 
   }
 
-  public Exercise(Long id, String name, String description, String photo) {
+  public Exercise(Long id, String name, String description, String photo, String video) {
     this.id = id;
     this.name = name;
     this.photo = photo;
     this.description = description;
+    this.video = video;
   }
 
   @Id
@@ -33,6 +34,17 @@ public class Exercise {
 
   @Column(name = "photo", nullable = false)
   private String photo;
+
+  @Column(name = "video", nullable = false)
+  private String video;
+
+  public void setVideo(String video) {
+    this.video = video;
+  }
+
+  public String getVideo() {
+    return video;
+  }
 
   public void setName(String name) {
     this.name = name;
