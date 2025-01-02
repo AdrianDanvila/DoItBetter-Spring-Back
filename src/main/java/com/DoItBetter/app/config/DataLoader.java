@@ -19,7 +19,7 @@ public class DataLoader implements CommandLineRunner {
   public void run(String... args) throws Exception {
     exerciseRepository
         .save(new Exercise((long) 1, "exercises.squat.name", "exercises.squat.description", "/squat.png",
-            "https://www.shutterstock.com/shutterstock/videos/1042909138/preview/stock-footage-barbell-low-bar-squat-d.webm"));
+            ""));
     exerciseRepository
         .save(new Exercise((long) 2, "exercises.biceps_curl.name", "exercises.biceps_curl.description",
             "/biceps_curl.png", ""));
