@@ -22,7 +22,7 @@ public class DataLoader implements CommandLineRunner {
             "/squat.gif"));
     exerciseRepository
         .save(new Exercise((long) 2, "exercises.biceps_curl.name", "exercises.biceps_curl.description",
-            "/biceps_curl.png", ""));
+            "/biceps_curl.jpg", "biceps_curl.gif"));
     exerciseRepository
         .save(
             new Exercise((long) 3, "exercises.benchpress.name", "exercises.benchpress.description", "/benchpress.png",
