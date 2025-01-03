@@ -153,7 +153,7 @@ public class RoutineServiceImpl implements UserService {
 		return tempRoutineDto;
 	}
 
-	public List<RoutineExerciseResponseDto> addExercise(long id, RoutineExercise exercise) {
+	public List<RoutineExercise> addExercise(long id, RoutineExercise exercise) {
 		Routine tempRoutine = routineRepository.getReferenceById(id);
 		List<RoutineExerciseResponseDto> routineExerciseListDto = new ArrayList<>();
 
@@ -173,7 +173,7 @@ public class RoutineServiceImpl implements UserService {
 
 				routineExerciseListDto.add(tempRoutineExercise);
 			});
-			return routineExerciseListDto;
+			return tempRoutine.getExercises();
 		}
 		routineRepository.save(tempRoutine);
 
@@ -188,7 +188,7 @@ public class RoutineServiceImpl implements UserService {
 			routineExerciseListDto.add(tempRoutineExercise);
 		});
 
-		return routineExerciseListDto;
+		return tempRoutine.getExercises();
 	}
 
 	public List<RoutineExerciseResponseDto> removeExercise(long id, RoutineExercise exercise) {

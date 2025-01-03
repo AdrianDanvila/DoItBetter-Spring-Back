@@ -123,7 +123,7 @@ public class RoutineController {
 	}
 
 	@PostMapping("/{id}/exercises")
-	public ResponseEntity<ResponseVO<List<RoutineExerciseResponseDto>>> postRoutineExercise(@PathVariable Long id,
+	public ResponseEntity<ResponseVO<List<RoutineExercise>>> postRoutineExercise(@PathVariable Long id,
 			@RequestBody RoutineExerciseDto routineExerciseDTO) {
 
 		RoutineExercise routineExercise = new RoutineExercise();
@@ -133,11 +133,11 @@ public class RoutineController {
 		routineExercise.setSets(routineExerciseDTO.getSets());
 		routineExercise.setReps(routineExerciseDTO.getReps());
 		routineExercise.setWeight(routineExerciseDTO.getWeight());
-		List<RoutineExerciseResponseDto> response = routineServiceImpl.addExercise(id, routineExercise);
+		List<RoutineExercise> response = routineServiceImpl.addExercise(id, routineExercise);
 
 		ResponseEntity.ok();
 		return ResponseEntity.status(HttpStatus.ACCEPTED).contentType(MediaType.APPLICATION_JSON)
-				.body(new ResponseVOBuilder<List<RoutineExerciseResponseDto>>().addData(response).build());
+				.body(new ResponseVOBuilder<List<RoutineExercise>>().addData(response).build());
 	}
 
 	@DeleteMapping("/{id}/exercises")
