@@ -26,6 +26,6 @@ public class DataLoader implements CommandLineRunner {
     exerciseRepository
         .save(
             new Exercise((long) 3, "exercises.benchpress.name", "exercises.benchpress.description", "/benchpress.png",
-                ""));
+                "/benchpress.gif"));
   }
 }

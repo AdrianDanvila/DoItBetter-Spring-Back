@@ -168,6 +168,9 @@ public class RoutineServiceImpl implements UserService {
 				tempRoutineExercise.setId(routineExercise.getExercise().getId());
 				tempRoutineExercise.setName(routineExercise.getExercise().getName());
 				tempRoutineExercise.setDescription(routineExercise.getExercise().getDescription());
+				tempRoutineExercise.setPhoto(routineExercise.getExercise().getPhoto());
+				tempRoutineExercise.setVideo(routineExercise.getExercise().getVideo());
+
 				routineExerciseListDto.add(tempRoutineExercise);
 			});
 			return routineExerciseListDto;
@@ -180,6 +183,8 @@ public class RoutineServiceImpl implements UserService {
 			tempRoutineExercise.setId(routineExercise.getExercise().getId());
 			tempRoutineExercise.setName(routineExercise.getExercise().getName());
 			tempRoutineExercise.setDescription(routineExercise.getExercise().getDescription());
+			tempRoutineExercise.setPhoto(routineExercise.getExercise().getPhoto());
+			tempRoutineExercise.setVideo(routineExercise.getExercise().getVideo());
 			routineExerciseListDto.add(tempRoutineExercise);
 		});
 
@@ -199,6 +204,8 @@ public class RoutineServiceImpl implements UserService {
 			tempRoutineExercise.setId(routineExercise.getExercise().getId());
 			tempRoutineExercise.setName(routineExercise.getExercise().getName());
 			tempRoutineExercise.setDescription(routineExercise.getExercise().getDescription());
+			tempRoutineExercise.setPhoto(routineExercise.getExercise().getPhoto());
+			tempRoutineExercise.setVideo(routineExercise.getExercise().getVideo());
 			routineExerciseListDto.add(tempRoutineExercise);
 		});
 		return routineExerciseListDto;
@@ -216,6 +223,8 @@ public class RoutineServiceImpl implements UserService {
 			tempRoutineExercise.setId(routineExercise.getExercise().getId());
 			tempRoutineExercise.setName(routineExercise.getExercise().getName());
 			tempRoutineExercise.setDescription(routineExercise.getExercise().getDescription());
+			tempRoutineExercise.setPhoto(routineExercise.getExercise().getPhoto());
+			tempRoutineExercise.setVideo(routineExercise.getExercise().getVideo());
 			routineExerciseListDto.add(tempRoutineExercise);
 		});
 

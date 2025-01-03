@@ -6,6 +6,24 @@ public class RoutineExerciseDto {
   private Long sets;
   private Long reps;
   private Long weight;
+  private String photo;
+  private String video;
+
+  public void setVideo(String video) {
+    this.video = video;
+  }
+
+  public void setPhoto(String photo) {
+    this.photo = photo;
+  }
+
+  public String getVideo() {
+    return video;
+  }
+
+  public String getPhoto() {
+    return photo;
+  }
 
   public Long getId() {
     return id;
