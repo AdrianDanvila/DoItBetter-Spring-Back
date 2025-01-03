@@ -193,21 +193,11 @@ public class RoutineServiceImpl implements UserService {
 
 	public List<RoutineExercise> removeExercise(long id, RoutineExercise exercise) {
 		Routine tempRoutine = routineRepository.getReferenceById(id);
-		List<RoutineExerciseResponseDto> routineExerciseListDto = new ArrayList<>();
 
 		tempRoutine.deleteExercise(exercise);
 		routineRepository.save(tempRoutine);
 
-		tempRoutine.getExercises().forEach(routineExercise -> {
-			RoutineExerciseResponseDto tempRoutineExercise = modelMapper.map(routineExercise,
-					RoutineExerciseResponseDto.class);
-			tempRoutineExercise.setId(routineExercise.getExercise().getId());
-			tempRoutineExercise.setName(routineExercise.getExercise().getName());
-			tempRoutineExercise.setDescription(routineExercise.getExercise().getDescription());
-			tempRoutineExercise.setPhoto(routineExercise.getExercise().getPhoto());
-			tempRoutineExercise.setVideo(routineExercise.getExercise().getVideo());
-			routineExerciseListDto.add(tempRoutineExercise);
-		});
+		tempRoutine = routineRepository.getReferenceById(id);
 		return tempRoutine.getExercises();
 	}
 
