@@ -25,7 +25,7 @@ public class DataLoader implements CommandLineRunner {
             "/biceps_curl.jpg", "/biceps_curl.gif"));
     exerciseRepository
         .save(
-            new Exercise((long) 3, "exercises.benchpress.name", "exercises.benchpress.description", "/benchpress.jng",
+            new Exercise((long) 3, "exercises.benchpress.name", "exercises.benchpress.description", "/benchpress.jpg",
                 "/benchpress.gif"));
   }
 }
